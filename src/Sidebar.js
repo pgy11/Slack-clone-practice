@@ -13,15 +13,15 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
-import { db, getChannelPromise } from "./firebase";
+import { getChannelPromise } from "./firebase";
 
 function Sidebar() {
   const [channels, setChannels] = useState([]);
 
   useEffect(() => {
     // Run this code ONCE when the sidebar component load
-    const channelList = getChannelPromise(db);
-    channelList.then((res) => {
+    const channelPromise = getChannelPromise();
+    channelPromise.then((res) => {
       setChannels(res);
     });
   }, []);
@@ -49,10 +49,9 @@ function Sidebar() {
       <hr />
       <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
       <hr />
-      <SidebarOption Icon={AddIcon} title="Add Channel" />
+      <SidebarOption Icon={AddIcon} title="Add Channel" addChannelOption={true} />
       {/** Connect db and list all the channels */}
       {/** <SidebarOption /> ... */}
-
       {channels.map((channel) => (
         <SidebarOption title={channel.name} id={channel.id} />
       ))}
