@@ -1,4 +1,3 @@
-import { doc, setDoc } from "firebase/firestore";
 import React from "react";
 import { useHistory } from "react-router";
 import {  addChannelName } from "./firebase";
@@ -16,7 +15,7 @@ function SidebarOption({ Icon, title, id, addChannelOption }) {
     }
   };
 
-  const addChannel = async () => {
+  const addChannel = () => {
     const channelName = prompt('Please enter the channel name');
     if(channelName){
       addChannelName(channelName);

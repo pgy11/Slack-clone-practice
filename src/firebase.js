@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc, doc, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, doc, onSnapshot, orderBy, query  } from "firebase/firestore";
 import firebaseConfig from "./firebaseConf";
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -29,18 +29,14 @@ function setRoomName(roomId, setRoomDetails) {
 }
 
 async function loadMessage(roomId, setRoomMessages) {
-  /*db.collection("rooms")
-  .doc(roomId)
-  .collection("messages")
-  .orderby("timestamp", "asc")
-  .onSnapshot((snapshot) => setRoomMessages(snapshot.docs.map((x => x.data()))));
-  //const channelRef = collection(db, "rooms");
-  //onSnapshot(doc(db, "rooms", roomId, "messages", "message"), (x) => {
-  //console.log(x);
-  //})
-
-  const channelsCollection = collection(db, "rooms");
- */ 
+  const channelsCollection = collection(db, "rooms", roomId, "messages");
+  const q = query(channelsCollection, orderBy("timestamp", "asc"));
+  const querySnapshot = await getDocs(q);
+  const arr = []
+  querySnapshot.forEach(x => {
+    arr.push(x.data());
+  })
+  setRoomMessages(arr);
 }
 
-export { db, getChannelPromise, addChannelName, setRoomName };
+export { db, getChannelPromise, addChannelName, setRoomName, loadMessage };
