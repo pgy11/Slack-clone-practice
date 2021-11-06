@@ -14,9 +14,11 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
 import { getChannelPromise } from "./firebase";
+import { useStateValue } from "./StateProvider";
 
 function Sidebar() {
   const [channels, setChannels] = useState([]);
+  const [{ user }] = useStateValue();
 
   useEffect(() => {
     // Run this code ONCE when the sidebar component load
@@ -33,7 +35,7 @@ function Sidebar() {
           <h2>Hello SLACK</h2>
           <h3>
             <FiberManualRecordIcon />
-            yoon
+            {user?.displayName}
           </h3>
         </div>
         <CreateIcon />

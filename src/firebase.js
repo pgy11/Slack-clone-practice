@@ -1,9 +1,23 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc, doc, onSnapshot, orderBy, query  } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "@firebase/auth";
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+} from "firebase/firestore";
 import firebaseConfig from "./firebaseConf";
 
 const firebaseApp = initializeApp(firebaseConfig);
+firebaseApp.automaticDataCollectionEnabled = true;
 const db = getFirestore(firebaseApp);
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
 
 async function getChannelPromise() {
   const channelsCollection = collection(db, "rooms");
@@ -32,11 +46,29 @@ async function loadMessage(roomId, setRoomMessages) {
   const channelsCollection = collection(db, "rooms", roomId, "messages");
   const q = query(channelsCollection, orderBy("timestamp", "asc"));
   const querySnapshot = await getDocs(q);
-  const arr = []
-  querySnapshot.forEach(x => {
+  const arr = [];
+  querySnapshot.forEach((x) => {
     arr.push(x.data());
-  })
+  });
   setRoomMessages(arr);
 }
 
-export { db, getChannelPromise, addChannelName, setRoomName, loadMessage };
+async function submitMessage(roomId, input, user) {
+  await addDoc(collection(db, "rooms", roomId, "messages"), {
+    message: input,
+    timestamp: serverTimestamp(),
+    user: user.displayName,
+    userimage: user.photoURL
+  });
+}
+
+export {
+  db,
+  getChannelPromise,
+  addChannelName,
+  setRoomName,
+  loadMessage,
+  auth,
+  provider,
+  submitMessage
+};
