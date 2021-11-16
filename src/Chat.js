@@ -18,7 +18,8 @@ function Chat() {
     }
 
     loadMessage(roomId, (data) => setRoomMessages(data));
-  }, [roomId]);
+  }, [roomId, roomMessages]);
+
 
   return (
     <div className="chat">

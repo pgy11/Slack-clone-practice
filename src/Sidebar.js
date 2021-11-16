@@ -26,7 +26,7 @@ function Sidebar() {
     channelPromise.then((res) => {
       setChannels(res);
     });
-  }, []);
+  }, [channels]);
 
   return (
     <div className="sidebar">
@@ -55,7 +55,7 @@ function Sidebar() {
       {/** Connect db and list all the channels */}
       {/** <SidebarOption /> ... */}
       {channels.map((channel) => (
-        <SidebarOption title={channel.name} id={channel.id} />
+        <SidebarOption key={channel.id} title={channel.name} id={channel.id} />
       ))}
     </div>
   );

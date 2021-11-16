@@ -1,4 +1,3 @@
-import { Button } from '@material-ui/core';
 import React, { useState } from 'react'
 import "./ChatInput.css";
 import { submitMessage } from './firebase';
@@ -11,7 +10,8 @@ function ChatInput({channelName, channelId}) {
     const sendMessage = (e) => {
         e.preventDefault();
         if(channelId){
-            submitMessage(channelId, input, user);            
+            submitMessage(channelId, input, user);
+            setInput('');            
         }        
     };
 

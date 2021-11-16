@@ -21,10 +21,11 @@ const provider = new GoogleAuthProvider();
 
 async function getChannelPromise() {
   const channelsCollection = collection(db, "rooms");
-  const channelSnapshot = await getDocs(channelsCollection);
-  const channelPromise = channelSnapshot.docs.map((doc) => ({
-    id: doc.id,
-    name: doc.data().name,
+  const q = query(channelsCollection, orderBy("timestamp", "asc"));
+  const querySnapshot = await getDocs(q);
+  const channelPromise = querySnapshot.docs.map((item) => ({
+    id: item.id,
+    name: item.data().name,
   }));
   return channelPromise;
 }
@@ -33,6 +34,7 @@ async function addChannelName(channelName) {
   const channelsCollection = collection(db, "rooms");
   await addDoc(channelsCollection, {
     name: channelName,
+    timestamp: serverTimestamp(),
   });
 }
 
