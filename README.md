@@ -6,10 +6,9 @@
 2. Firebase 9.3.0
 3. React-router-dom
 4. Context API
+5. Universal-cookie
 
 <br/>
-
-React JS 공부를 위해, [Clever programmer의 Slack 클론 코딩](https://www.youtube.com/watch?v=Oo4ziTddOxs&t=5464s)을 보는 중..<br/>
 
 ### 2021.11.07
 
@@ -39,3 +38,12 @@ React JS 공부를 위해, [Clever programmer의 Slack 클론 코딩](https://ww
 
 <br/>
 
+### 2021.11.19
+
+* 쿠키 설정 완료
+
+  * 이제 `F5`해도 로그인 화면으로 안감
+  * 기존에 사용하던 Context API를 이용하여 쿠키를 전역 객체로 등록
+  * `useEffect`를 이용하여, 쿠키가 있으면 전역 객체 `user`에 등록하여 사용 
+
+  
