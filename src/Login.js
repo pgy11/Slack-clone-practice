@@ -14,6 +14,7 @@ function Login() {
             dispatch({
                 type: actionTypes.SET_USER,
                 user: result.user,
+                cookie: result.user
             })
         })
         .catch(error => alert(error));        

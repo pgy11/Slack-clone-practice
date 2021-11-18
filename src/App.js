@@ -5,9 +5,21 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Chat from "./Chat";
 import Login from "./Login";
 import { useStateValue } from "./StateProvider";
+import { getCookie } from "./cookie";
+import { useEffect } from "react";
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
+
+  useEffect(() => {
+    const cookie = getCookie("googleToken");
+    if (cookie) {
+      dispatch({
+        type: "SET_USER",
+        user: cookie,
+      });
+    }
+  }, []);
 
   return (
     <div className="App">

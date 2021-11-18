@@ -1,5 +1,8 @@
+import { setCookie } from "./cookie";
+
 export const initialState = {
   user: null,
+  cookie: null
 };
 
 export const actionTypes = {
@@ -12,6 +15,9 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.user,
+        cookie: setCookie("googleToken", action.user,{
+          path: "/"
+        })
       };
     default:
       return state;
