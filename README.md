@@ -28,7 +28,7 @@
 * firebase 동기화 문제 해결
 
   * firebase은 동기화를 하고 있었는데, 애플리케이션에서 이를 반영하지 않았음.
-  * 이를 해결하기 위해, `useEffect`의 2번째 인수에 실시간으로 변하는 변수들을 할당했음.(e.g.` messages`, `channels`) 
+  * 이를 해결하기 위해, `useEffect`의 2번째 인수에 실시간으로 변하는 변수들을 할당했음.(e.g.`messages`, `channels`) 
 
   <br/>
 
